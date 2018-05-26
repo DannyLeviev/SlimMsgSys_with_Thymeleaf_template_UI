@@ -1,4 +1,4 @@
-package com.mycomp.mymessagesys.service;
+package com.mycomp.mymessagesys.service.unit_tests;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doNothing;
@@ -22,6 +22,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mycomp.mymessagesys.model.MessageDTO;
 import com.mycomp.mymessagesys.repository.MessageDAO;
+import com.mycomp.mymessagesys.service.MessageService;
+import com.mycomp.mymessagesys.service.MessageServiceImpl;
 import com.mycomp.mymessagesys.service.exceptions.InvalidMessageIdException;
 
 @RunWith(SpringRunner.class)

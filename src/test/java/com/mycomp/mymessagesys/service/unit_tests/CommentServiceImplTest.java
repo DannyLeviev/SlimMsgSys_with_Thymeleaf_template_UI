@@ -1,4 +1,4 @@
-package com.mycomp.mymessagesys.service;
+package com.mycomp.mymessagesys.service.unit_tests;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.times;
@@ -20,6 +20,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mycomp.mymessagesys.model.CommentDTO;
 import com.mycomp.mymessagesys.repository.CommentDAO;
+import com.mycomp.mymessagesys.service.CommentService;
+import com.mycomp.mymessagesys.service.CommentServiceImpl;
 
 @RunWith(SpringRunner.class)
 public class CommentServiceImplTest {

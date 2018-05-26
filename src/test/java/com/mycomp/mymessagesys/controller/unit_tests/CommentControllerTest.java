@@ -1,4 +1,4 @@
-package com.mycomp.mymessagesys.controllers;
+package com.mycomp.mymessagesys.controller.unit_tests;
 
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
