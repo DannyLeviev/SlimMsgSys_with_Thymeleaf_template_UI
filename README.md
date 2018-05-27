@@ -89,7 +89,7 @@ com.mycomp.mymessagesys.service.unit_tests.**CommentServiceImplTest.java**
 com.mycomp.mymessagesys.repository.component_integration_tests.**TestUserRepo.java**  
 com.mycomp.mymessagesys.repository.component_integration_tests.**TestMessageRepo.java** (TBD)  
 com.mycomp.mymessagesys.repository.component_integration_tests.**TestCommentRepo.java** (TBD)  
-2. Component Integration Tests  
+2. System Integration Tests  
 2.1 Per Entity repository:  
 com.mycomp.mymessagesys.repository.system_integration_tests.**TestUserRepo.java** (TBD)  
 com.mycomp.mymessagesys.repository.system_integration_tests.**TestMessageRepo.java** (TBD)  
@@ -99,7 +99,8 @@ com.mycomp.mymessagesys.repository.system_integration_tests.**TestCommentRepo.ja
 
 ## Pending technical issues:
 1. Complete all the (TBD) tests  
-2. Solve the open bugs
+2. Add loggings
+3. Solve the open bugs
 ****
 
 ## Open Bugs:
