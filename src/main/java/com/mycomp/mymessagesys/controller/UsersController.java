@@ -19,12 +19,11 @@ import com.mycomp.mymessagesys.service.UserService;
 
 @RestController
 @RequestMapping("/api/users")
-public class UsersController implements RestControllerInterface<UserDTO> {
+public class UsersController {
 
 	@Autowired
 	private UserService userService;
 
-	@Override
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public List<UserDTO> getList() {
@@ -32,7 +31,6 @@ public class UsersController implements RestControllerInterface<UserDTO> {
 		return users;
 	}
 
-	@Override
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public UserDTO get(@PathVariable("id") String id) {
@@ -40,14 +38,12 @@ public class UsersController implements RestControllerInterface<UserDTO> {
 		return usr;
 	}
 
-	@Override
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public void create(@RequestBody UserDTO newEntity) {
 		userService.create(newEntity);
 	}
 
-	@Override
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public UserDTO update(@PathVariable("id") String id, @RequestBody UserDTO entity) {
@@ -55,7 +51,6 @@ public class UsersController implements RestControllerInterface<UserDTO> {
 		return userDto;
 	}
 
-	@Override
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable("id") String id) {

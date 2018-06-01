@@ -6,14 +6,14 @@ import com.mycomp.mymessagesys.model.MessageDTO;
 
 public interface MessageService {
 
-	List<MessageDTO> getList();
+	List<MessageDTO> getList(Long userId);
 
-	MessageDTO get(Long id);
+	MessageDTO get(Long userId, Long msgId);
 
-	void create(MessageDTO newEntity);
+	void create(Long userId, MessageDTO newEntity);
 
-	MessageDTO update(Long id, MessageDTO entity);
+	MessageDTO update(Long userId, Long msgId, MessageDTO entity);
 
-	void delete(Long id);
+	void delete(Long userId, Long id);
 
 }

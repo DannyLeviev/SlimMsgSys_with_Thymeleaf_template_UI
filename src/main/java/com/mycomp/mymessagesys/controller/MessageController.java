@@ -18,7 +18,7 @@ import com.mycomp.mymessagesys.model.MessageDTO;
 import com.mycomp.mymessagesys.service.MessageService;
 
 @RestController
-@RequestMapping("/api/messages")
+@RequestMapping("/api/users/{userId}/messages")
 public class MessageController implements RestControllerInterface<MessageDTO> {
 
 	@Autowired
@@ -27,39 +27,40 @@ public class MessageController implements RestControllerInterface<MessageDTO> {
 	@Override
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public List<MessageDTO> getList() {
-		List<MessageDTO> msgList = msgService.getList();
+	public List<MessageDTO> getList(@PathVariable("userId") String userId) {
+		List<MessageDTO> msgList = msgService.getList(Long.parseLong(userId, 10));
 		return msgList;
 	}
 
 	@Override
-	@GetMapping("/{id}")
+	@GetMapping("/{msgId}")
 	@ResponseStatus(HttpStatus.OK)
-	public MessageDTO get(@PathVariable("id") String id) {
-		MessageDTO msg = msgService.get(Long.parseLong(id, 10));
+	public MessageDTO get(@PathVariable("userId") String userId, @PathVariable("msgId") String msgId) {
+		MessageDTO msg = msgService.get(Long.parseLong(userId, 10), Long.parseLong(msgId, 10));
 		return msg;
 	}
 
 	@Override
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public void create(@RequestBody MessageDTO newEntity) {
-		msgService.create(newEntity);
+	public void create(@PathVariable("userId") String userId, @RequestBody MessageDTO newEntity) {
+		msgService.create(Long.parseLong(userId, 10), newEntity);
 	}
 
 	@Override
-	@PutMapping("/{id}")
+	@PutMapping("/{msgId}")
 	@ResponseStatus(HttpStatus.OK)
-	public MessageDTO update(@PathVariable("id") String id, @RequestBody MessageDTO entity) {
-		MessageDTO updatedmsg = msgService.update(Long.parseLong(id, 10), entity);
+	public MessageDTO update(@PathVariable("userId") String userId, @PathVariable("msgId") String msgId,
+			@RequestBody MessageDTO entity) {
+		MessageDTO updatedmsg = msgService.update(Long.parseLong(userId, 10), Long.parseLong(msgId, 10), entity);
 		return updatedmsg;
 	}
 
 	@Override
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/{msgId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void delete(@PathVariable("id") String id) {
-		msgService.delete(Long.parseLong(id, 10));
+	public void delete(@PathVariable("userId") String userId, @PathVariable("msgId") String msgId) {
+		msgService.delete(Long.parseLong(userId, 10), Long.parseLong(msgId, 10));
 
 	}
 

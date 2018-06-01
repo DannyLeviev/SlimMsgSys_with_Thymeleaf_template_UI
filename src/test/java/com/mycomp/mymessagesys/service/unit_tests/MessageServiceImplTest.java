@@ -21,6 +21,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mycomp.mymessagesys.model.MessageDTO;
+import com.mycomp.mymessagesys.model.UserDTO;
 import com.mycomp.mymessagesys.repository.MessageDAO;
 import com.mycomp.mymessagesys.service.MessageService;
 import com.mycomp.mymessagesys.service.MessageServiceImpl;
@@ -52,7 +53,8 @@ public class MessageServiceImplTest {
 	MessageDAO msgDao;
 
 	private MessageDTO createMessage(Long id, Long authorId, String txt) {
-		MessageDTO msg = MessageDTO.msg_builder().id(id).authorId(authorId).text(txt)
+		UserDTO author = UserDTO.builder().id(authorId).name("author").age(120).build();
+		MessageDTO msg = MessageDTO.msg_builder().id(id).author(author).text(txt)
 				.creationDateTime(LocalDateTime.now().toString()).build();
 		return msg;
 	}
@@ -63,14 +65,14 @@ public class MessageServiceImplTest {
 		Optional<MessageDTO> msgOpt = Optional.of(msg);
 		when(msgDao.findById(11L)).thenReturn(msgOpt);
 
-		assertThat(msgService.get(11L)).isEqualTo(msg);
+		assertThat(msgService.get(11L, 11L)).isEqualTo(msg);
 	}
 
 	@Test(expected = InvalidMessageIdException.class)
 	public void testGetInvalidId() {
 		Optional<MessageDTO> msgOpt = Optional.empty();
 		when(msgDao.findById(12L)).thenReturn(msgOpt);
-		msgService.get(12L);
+		msgService.get(11L, 12L);
 	}
 
 	@Test
@@ -82,7 +84,7 @@ public class MessageServiceImplTest {
 		msgList.add(msg2);
 		when(msgDao.findAll()).thenReturn(msgList);
 
-		assertThat(msgService.getList()).isEqualTo(msgList);
+		assertThat(msgService.getList(22L)).isEqualTo(msgList);
 	}
 
 	@Test
@@ -90,7 +92,7 @@ public class MessageServiceImplTest {
 		MessageDTO msg = createMessage(33L, 33L, "Message_33");
 		when(msgDao.save(msg)).thenReturn(msg);
 		ArgumentCaptor<MessageDTO> msgCaptor = ArgumentCaptor.forClass(MessageDTO.class);
-		msgService.create(msg);
+		msgService.create(33L, msg);
 		verify(msgDao, times(1)).save(msgCaptor.capture());
 	}
 
@@ -100,21 +102,16 @@ public class MessageServiceImplTest {
 		Optional<MessageDTO> msgOpt = Optional.of(msg);
 		when(msgDao.findById(44L)).thenReturn(msgOpt);
 
-		assertThat(msgService.get(44L)).isEqualTo(msg);
-	}
-
-	@Test(expected = InvalidMessageIdException.class)
-	public void testUpdateInvalidId() {
-		Optional<MessageDTO> msgOpt = Optional.empty();
-		when(msgDao.findById(44L)).thenReturn(msgOpt);
-		msgService.update(44L, createMessage(0L, 0L, null));
+		assertThat(msgService.get(44L, 44L)).isEqualTo(msg);
 	}
 
 	@Test
 	public void testDelete() {
 		doNothing().when(msgDao).deleteById(55L);
+		MessageDTO msg = createMessage(55L, 55L, "Message_55");
+		when(msgService.get(55L, 55L)).thenReturn(msg);
 		ArgumentCaptor<Long> strCaptor = ArgumentCaptor.forClass(Long.class);
-		msgService.delete(55L);
+		msgService.delete(55L, 55L);
 		verify(msgDao, times(1)).deleteById(strCaptor.capture());
 	}
 

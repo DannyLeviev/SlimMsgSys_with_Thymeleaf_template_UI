@@ -5,14 +5,14 @@ import java.util.List;
 
 public interface RestControllerInterface<T>{
 
-	List<T> getList();
+	List<T> getList(String UserId);
 
-	void create(T newEntity);
+	T get(String UserId, String msgId);
 
-	T get(String id);
+	T update(String UserId, String msgId, T entity);
+	
+	void create(String UserId, T entity);
 
-	T update(String id, T entity);
-
-	void delete(String id);
+	void delete(String UserId, String msgId);
 
 }

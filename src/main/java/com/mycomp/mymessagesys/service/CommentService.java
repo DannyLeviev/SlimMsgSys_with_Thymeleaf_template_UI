@@ -6,8 +6,8 @@ import com.mycomp.mymessagesys.model.CommentDTO;
 
 public interface CommentService {
 
-	List<CommentDTO> getMessageComments(Long id);
+	List<CommentDTO> getMessageComments(Long userId, Long msgId);
 
-	void createMessageComment(CommentDTO newComnt);
+	void createMessageComment(Long userId, Long msgId, CommentDTO newComnt);
 
 }

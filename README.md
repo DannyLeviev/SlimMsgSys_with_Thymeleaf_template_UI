@@ -98,10 +98,10 @@ com.mycomp.mymessagesys.repository.system_integration_tests.**TestCommentRepo.ja
 ****
 
 ## Pending technical issues:
-1. Complete all the (TBD) tests  
-2. Add loggings
-3. Solve the open bugs
+1. Check tests run instability.  
+2. Complete all the (TBD) tests
+3. Add loggings
 ****
 
 ## Open Bugs:
-1. 'Get all Messages' call retrieved also all Comments (could be due to the fact that  Message is super class to Comment).(TBD)
+1. ~~'Get all Messages' call retrieved also all Comments (could be due to the fact that  Message is super class to Comment).~~

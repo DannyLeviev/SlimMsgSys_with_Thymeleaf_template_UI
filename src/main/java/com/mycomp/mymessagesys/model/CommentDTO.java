@@ -22,10 +22,10 @@ public class CommentDTO extends BaseMessage {
 	@Column(name = "parent_id")
 	private Long parentMsgId;
 
-	@Builder(builderMethodName = "cmnt_builder") // adding custom builder name to avoid compilation issue 'return type is
-												// not compatible...'
-	public CommentDTO(Long id, Long authorId, String text, String creationDateTime, Long parentMsgId) {
-		super(id, authorId, text, creationDateTime);
+	// adding custom builder name to avoid compilation err "return type isn't compatible": 
+	@Builder(builderMethodName = "cmnt_builder")
+	public CommentDTO(Long id, UserDTO author, String text, String creationDateTime, Long parentMsgId) {
+		super(id, author, text, creationDateTime);
 		this.parentMsgId = parentMsgId;
 	}
 

@@ -9,11 +9,13 @@ import com.mycomp.mymessagesys.model.CommentDTO;
 public interface CommentDAO extends JpaRepository<CommentDTO, Long> {
 
 	/*
-	 * Query builder mechanism built into Spring Data repository infrastructure
-	 * is useful for building constraining queries over entities of the repository.
-	 * See documentation: 
-	 * https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods.query-creation
+	 * Query builder mechanism built into Spring Data repository infrastructure is
+	 * useful for building constraining queries over entities of the repository. See
+	 * documentation:
+	 * https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#
+	 * repositories.query-methods.query-creation
 	 */
-	public List<CommentDTO> findByParentMsgId(Long parentMsgId);
+
+	public List<CommentDTO> findByAuthor_IdAndParentMsgId(Long userId, Long msgId);
 
 }

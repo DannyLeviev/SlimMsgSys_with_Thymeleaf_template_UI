@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mycomp.mymessagesys.model.MessageDTO;
+import com.mycomp.mymessagesys.model.UserDTO;
 import com.mycomp.mymessagesys.repository.MessageDAO;
-import com.mycomp.mymessagesys.service.exceptions.InvalidMessageIdException;
+import com.mycomp.mymessagesys.repository.UserDAO;
+import com.mycomp.mymessagesys.service.exceptions.InvalidUserIdException;
 
 @Service
 public class MessageServiceImpl implements MessageService {
@@ -17,50 +19,48 @@ public class MessageServiceImpl implements MessageService {
 	@Autowired
 	private MessageDAO messageDao;
 
+	@Autowired
+	private UserDAO userDao;
+
 	@Override
-	public List<MessageDTO> getList() {
-		List<MessageDTO> msgList = messageDao.findAll();
-		return msgList;
+	public List<MessageDTO> getList(Long userId) {
+		return messageDao.findByAuthor_Id(userId);
 	}
 
 	@Override
-	public MessageDTO get(Long id) {
-		MessageDTO msg = null;
-		Optional<MessageDTO> optionalMsg = messageDao.findById(id);
-		if (optionalMsg.isPresent()) {
-			msg = optionalMsg.get();
+	public MessageDTO get(Long userId, Long msgId) {
+		return messageDao.findByIdAndAuthor_Id(msgId, userId);
+	}
+
+	@Override
+	public void create(Long userId, MessageDTO newEntity) {
+		Optional<UserDTO> userOpt = userDao.findById(userId);
+		if (userOpt.isPresent()) {
+			newEntity.setAuthor(userOpt.get());
+			messageDao.save(newEntity);
 		} else {
-			throw new InvalidMessageIdException(id);
+			throw new InvalidUserIdException(userId);
 		}
-		return msg;
-	}
-
-	@Override
-	public void create(MessageDTO newEntity) {
-		messageDao.save(newEntity);
 	}
 
 	@Override
 	@Transactional
-	public MessageDTO update(Long id, MessageDTO entity) {
-		MessageDTO msg = null;
-		Optional<MessageDTO> optionalMsg = messageDao.findById(id);
-		if (optionalMsg.isPresent()) {
-			msg = optionalMsg.get();
-			msg.setAuthorId(entity.getAuthorId());
+	public MessageDTO update(Long userId, Long msgId, MessageDTO entity) {
+		MessageDTO msg = get(userId, msgId);
+		if (msg != null) {
 			msg.setCreationDateTime(entity.getCreationDateTime());
 			msg.setText(entity.getText());
 			messageDao.save(msg);
-		} else {
-			throw new InvalidMessageIdException(id);
 		}
 		return msg;
 	}
 
 	@Override
-	public void delete(Long id) {
-		messageDao.deleteById(id);
-
+	public void delete(Long userId, Long msgId) {
+		MessageDTO msg = get(userId, msgId);
+		if (msg != null) {
+			messageDao.deleteById(msgId);
+		}
 	}
 
 }

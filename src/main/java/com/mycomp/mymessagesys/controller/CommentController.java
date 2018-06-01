@@ -16,24 +16,24 @@ import com.mycomp.mymessagesys.model.CommentDTO;
 import com.mycomp.mymessagesys.service.CommentService;
 
 @RestController
-@RequestMapping("/api/comments")
+@RequestMapping("/api/users/{userId}/messages/{msgId}/comments")
 public class CommentController {
 
 	@Autowired
 	CommentService cmntService;
 
-	@GetMapping("message/{msgId}")
+	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public List<CommentDTO> getList(@PathVariable("msgId") String msgId) {
-		List<CommentDTO> cmnts = cmntService.getMessageComments(Long.parseLong(msgId, 10));
+	public List<CommentDTO> getList(@PathVariable("userId") String userId, @PathVariable("msgId") String msgId) {
+		List<CommentDTO> cmnts = cmntService.getMessageComments(Long.parseLong(userId, 10), Long.parseLong(msgId, 10));
 		return cmnts;
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public void createMessageComment(
+	public void createMessageComment(@PathVariable("userId") String userId, @PathVariable("msgId") String msgId,
 			@RequestBody CommentDTO newComnt) {
-		cmntService.createMessageComment(newComnt);
+		cmntService.createMessageComment(Long.parseLong(userId, 10), Long.parseLong(msgId, 10), newComnt);
 	}
 
 }

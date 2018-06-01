@@ -19,6 +19,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mycomp.mymessagesys.model.CommentDTO;
+import com.mycomp.mymessagesys.model.UserDTO;
 import com.mycomp.mymessagesys.repository.CommentDAO;
 import com.mycomp.mymessagesys.service.CommentService;
 import com.mycomp.mymessagesys.service.CommentServiceImpl;
@@ -49,7 +50,8 @@ public class CommentServiceImplTest {
 	CommentDAO cmntDao;
 
 	private CommentDTO createComment(Long id, Long authorId, String txt, Long parentMsgId) {
-		CommentDTO cmnt = CommentDTO.cmnt_builder().id(id).authorId(authorId).text(txt)
+		UserDTO author = UserDTO.builder().id(authorId).name("author").age(120).build();
+		CommentDTO cmnt = CommentDTO.cmnt_builder().id(id).author(author).text(txt)
 				.creationDateTime(LocalDateTime.now().toString()).parentMsgId(parentMsgId).build();
 		return cmnt;
 	}
@@ -61,9 +63,9 @@ public class CommentServiceImplTest {
 		List<CommentDTO> cmntList = new ArrayList<CommentDTO>();
 		cmntList.add(cmnt1);
 		cmntList.add(cmnt2);
-		when(cmntDao.findByParentMsgId(111L)).thenReturn(cmntList);
+		when(cmntDao.findByAuthor_IdAndParentMsgId(11L, 111L)).thenReturn(cmntList);
 
-		assertThat(cmntService.getMessageComments(111L)).isEqualTo(cmntList);
+		assertThat(cmntService.getMessageComments(11L, 111L)).isEqualTo(cmntList);
 	}
 
 	@Test
@@ -71,7 +73,7 @@ public class CommentServiceImplTest {
 		CommentDTO cmnt1 = createComment(33L, 33L, "Comment_33", 333L);
 		when(cmntDao.save(cmnt1)).thenReturn(cmnt1);
 		ArgumentCaptor<CommentDTO> cmntCaptor = ArgumentCaptor.forClass(CommentDTO.class);
-		cmntService.createMessageComment(cmnt1);
+		cmntService.createMessageComment(33L, 333L, cmnt1);
 		verify(cmntDao, times(1)).save(cmntCaptor.capture());
 	}
 

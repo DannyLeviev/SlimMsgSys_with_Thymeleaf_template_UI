@@ -12,17 +12,17 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @Table(name = "messages")
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class MessageDTO extends BaseMessage {
 
-	// adding custom builder name to avoid compilation err 'return 
-	// type isn't compatible':
+	// adding custom builder name to avoid compilation err  
+	// "return type isn't compatible":
 	@Builder(builderMethodName = "msg_builder")
-	public MessageDTO(Long id, Long authorId, String text, String creationDateTime) {
-		super(id, authorId, text, creationDateTime);
+	public MessageDTO(Long id, UserDTO author, String text, String creationDateTime) {
+		super(id, author, text, creationDateTime);
 	}
 
 }
