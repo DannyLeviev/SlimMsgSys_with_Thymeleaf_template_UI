@@ -17,12 +17,12 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "comments")
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-public class CommentDTO extends MessageDTO {
+public class CommentDTO extends BaseMessage {
 
-	@Column(name = "parent_msg")
+	@Column(name = "parent_id")
 	private Long parentMsgId;
 
-	@Builder(builderMethodName = "_builder") // adding custom builder name to avoid compilation issue 'return type is
+	@Builder(builderMethodName = "cmnt_builder") // adding custom builder name to avoid compilation issue 'return type is
 												// not compatible...'
 	public CommentDTO(Long id, Long authorId, String text, String creationDateTime, Long parentMsgId) {
 		super(id, authorId, text, creationDateTime);

@@ -46,7 +46,7 @@ public class CommentControllerTest {
 	CommentServiceImpl cmntService;
 
 	private CommentDTO createComment(Long id, Long authorId, String txt, Long msgId) {
-		CommentDTO newCmnt = CommentDTO._builder().id(id).authorId(authorId).text(txt)
+		CommentDTO newCmnt = CommentDTO.cmnt_builder().id(id).authorId(authorId).text(txt)
 				.creationDateTime(LocalDateTime.now().toString()).parentMsgId(msgId).build();
 		return newCmnt;
 	}

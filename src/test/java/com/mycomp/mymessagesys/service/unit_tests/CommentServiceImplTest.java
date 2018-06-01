@@ -49,7 +49,7 @@ public class CommentServiceImplTest {
 	CommentDAO cmntDao;
 
 	private CommentDTO createComment(Long id, Long authorId, String txt, Long parentMsgId) {
-		CommentDTO cmnt = CommentDTO._builder().id(id).authorId(authorId).text(txt)
+		CommentDTO cmnt = CommentDTO.cmnt_builder().id(id).authorId(authorId).text(txt)
 				.creationDateTime(LocalDateTime.now().toString()).parentMsgId(parentMsgId).build();
 		return cmnt;
 	}

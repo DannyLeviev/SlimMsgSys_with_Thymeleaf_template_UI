@@ -52,7 +52,7 @@ public class MessageServiceImplTest {
 	MessageDAO msgDao;
 
 	private MessageDTO createMessage(Long id, Long authorId, String txt) {
-		MessageDTO msg = MessageDTO.builder().id(id).authorId(authorId).text(txt)
+		MessageDTO msg = MessageDTO.msg_builder().id(id).authorId(authorId).text(txt)
 				.creationDateTime(LocalDateTime.now().toString()).build();
 		return msg;
 	}
