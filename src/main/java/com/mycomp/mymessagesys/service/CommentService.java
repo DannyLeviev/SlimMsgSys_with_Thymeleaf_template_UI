@@ -8,6 +8,6 @@ public interface CommentService {
 
 	List<CommentDTO> getMessageComments(Long id);
 
-	void createMessageComment(Long id, CommentDTO newComnt);
+	void createMessageComment(CommentDTO newComnt);
 
 }

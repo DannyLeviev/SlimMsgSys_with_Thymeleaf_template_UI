@@ -71,7 +71,7 @@ public class CommentServiceImplTest {
 		CommentDTO cmnt1 = createComment(33L, 33L, "Comment_33", 333L);
 		when(cmntDao.save(cmnt1)).thenReturn(cmnt1);
 		ArgumentCaptor<CommentDTO> cmntCaptor = ArgumentCaptor.forClass(CommentDTO.class);
-		cmntService.createMessageComment(333L, cmnt1);
+		cmntService.createMessageComment(cmnt1);
 		verify(cmntDao, times(1)).save(cmntCaptor.capture());
 	}
 

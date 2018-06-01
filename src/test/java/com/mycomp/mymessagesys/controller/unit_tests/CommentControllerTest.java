@@ -32,7 +32,9 @@ import com.mycomp.mymessagesys.service.CommentServiceImpl;
 @WebMvcTest(CommentController.class)
 public class CommentControllerTest {
 
-	private static String URL = "/api/messages/{id}/comments";
+	private static String GET_LIST_URL = "/api/comments/message/{id}";
+	private static String CREATE_MSG_CMNT_URL = "/api/comments";
+
 
 	@Autowired
 	MockMvc mockMvc;
@@ -55,7 +57,7 @@ public class CommentControllerTest {
 		List<CommentDTO> cmntList = new ArrayList<>();
 		cmntList.add(newCmnt);
 		when(cmntService.getMessageComments(33L)).thenReturn(cmntList);
-		mockMvc.perform(get(URL, "33")).andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+		mockMvc.perform(get(GET_LIST_URL, "33")).andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
 				.andExpect(status().isOk()).andExpect(content().string(jacksonMapper.writeValueAsString(cmntList)));
 		verify(cmntService, times(1)).getMessageComments(33L);
 	}
@@ -63,12 +65,11 @@ public class CommentControllerTest {
 	@Test
 	public void testCreateMessageComment() throws Exception {
 		CommentDTO newCmnt = createComment(111L, 222L, "This is a created Comment !", 333L);
-		doNothing().when(cmntService).createMessageComment(333L, newCmnt);
-		mockMvc.perform(post(URL, "333").contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+		doNothing().when(cmntService).createMessageComment(newCmnt);
+		mockMvc.perform(post(CREATE_MSG_CMNT_URL, "333").contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
 				.content(jacksonMapper.writeValueAsBytes(newCmnt))).andExpect(status().isCreated());
 		ArgumentCaptor<CommentDTO> cmntCaptor = ArgumentCaptor.forClass(CommentDTO.class);
-		ArgumentCaptor<Long> idCaptor = ArgumentCaptor.forClass(Long.class);
-		verify(cmntService, times(1)).createMessageComment(idCaptor.capture(), cmntCaptor.capture());
+		verify(cmntService, times(1)).createMessageComment(cmntCaptor.capture());
 	}
 
 }

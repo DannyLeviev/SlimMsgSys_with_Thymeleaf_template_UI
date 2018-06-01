@@ -21,10 +21,8 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public void createMessageComment(Long id, CommentDTO newComnt) {
-		if (id.equals(newComnt.getParentMsgId())) {
+	public void createMessageComment(CommentDTO newComnt) {
 			cmntDao.save(newComnt);
-		}
 	}
 
 }
