@@ -33,13 +33,13 @@ There are three main entities: a user, message and comment.
 2. **Use cases**: Create/get/update/delete Message  
    **URL**: http://localhost:8080/api/messagess/{id}
 3. **Use cases**: Create a Comment for specific Message  
-   **URL**: http://localhost:8080/api/messages/{id}/comments
+   **URL**: http://localhost:8080/api/comments
 4. **Use cases**: Get all Users  
    **URL**: http://localhost:8080/api/users
 5. **Use cases**: Get all Messages  
    **URL**: http://localhost:8080/api/messagess
 6. **Use cases**: Get all Comments of specific Message  
-   **URL**: http://localhost:8080/api/messages/{id}/comments
+   **URL**: http://localhost:8080/api//comments/message/{id}
 
 ****
 ## Project structure:
