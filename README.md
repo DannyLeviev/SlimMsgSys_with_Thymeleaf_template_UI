@@ -31,15 +31,9 @@ There are three main entities: a user, message and comment.
 1. **Use cases**: Create/get/update/delete User  
    **URL**: http://localhost:8080/api/users/{id}
 2. **Use cases**: Create/get/update/delete Message  
-   **URL**: http://localhost:8080/api/messagess/{id}
+   **URL**: http://localhost:8080/api/users/{usrId}/messages/{msgId}
 3. **Use cases**: Create a Comment for specific Message  
-   **URL**: http://localhost:8080/api/comments
-4. **Use cases**: Get all Users  
-   **URL**: http://localhost:8080/api/users
-5. **Use cases**: Get all Messages  
-   **URL**: http://localhost:8080/api/messagess
-6. **Use cases**: Get all Comments of specific Message  
-   **URL**: http://localhost:8080/api/comments/message/{id}
+   **URL**: http://localhost:8080/api/users/{usrId}/messages/{msgId}/comments
 
 ****
 ## Project structure:
@@ -65,6 +59,7 @@ CommentDAO.java
 
 * **com.mycomp.mymessagesys.model**:  
 UserDTO.java
+BaseMessage.java
 MessageDTO.java  
 CommentDTO.java
 
@@ -98,7 +93,8 @@ com.mycomp.mymessagesys.repository.system_integration_tests.**TestCommentRepo.ja
 ****
 
 ## Pending technical issues:
-1. Check tests run instability.  
+1. Check tests run instability
+2. Add Entity mapping for Message<=>Comment  
 2. Complete all the (TBD) tests
 3. Add loggings
 ****
