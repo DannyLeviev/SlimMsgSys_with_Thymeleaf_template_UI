@@ -32,6 +32,7 @@ public class CommentServiceImpl implements CommentService {
 		Optional<UserDTO> userOpt = userDao.findById(userId);
 		if (userOpt.isPresent()) {
 			newComnt.setAuthor(userOpt.get());
+			newComnt.setParentMsgId(msgId);
 			cmntDao.save(newComnt);
 		} else {
 			throw new InvalidUserIdException(userId);
